@@ -1,0 +1,23 @@
+{
+  "name": "cypress_base_framework",
+  "version": "1.0.0",
+  "description": "resuable base framework",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "rm -rf cypress/report",
+    "posttest": "npm run mochawesome_filemerge && npm run mochawesome_reportgen",
+    "test": "npm run mochawesome_run || mkdir cypress/report/mochawesome-merge cypress/report/mochawesome-report",
+    "mochawesome_run" : "npx cypress run -r mochawesome",
+    "mochawesome_filemerge" : "npx mochawesome-merge cypress/report/mochawesome-json/*.json > cypress/report/mochawesome-merge/execution_report.json",
+    "mochawesome_reportgen": "npx marge cypress/report/mochawesome-merge/execution_report.json --reportDir cypress/report/mochawesome-report"
+  },
+  "author": "js",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^13.6.0",
+    "mochawesome-merge": "^4.3.0"
+  },
+  "devDependencies": {
+    "mochawesome": "^7.1.3"
+  }
+}
